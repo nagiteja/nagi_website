@@ -409,6 +409,211 @@ const utils = {
     }
 };
 
+// Global function for timeline item toggle (called from HTML onclick)
+function toggleTimelineItem(header) {
+    const timelineItem = header.closest('.timeline-item');
+    const description = timelineItem.querySelector('.timeline-description');
+    const isExpanded = header.classList.contains('expanded');
+    
+    // Close all other expanded items
+    document.querySelectorAll('.timeline-header.expanded').forEach(otherHeader => {
+        if (otherHeader !== header) {
+            otherHeader.classList.remove('expanded');
+            otherHeader.querySelector('.timeline-description').classList.remove('expanded');
+        }
+    });
+    
+    // Toggle current item
+    if (isExpanded) {
+        header.classList.remove('expanded');
+        description.classList.remove('expanded');
+    } else {
+        header.classList.add('expanded');
+        description.classList.add('expanded');
+        
+        // Smooth scroll to the expanded item
+        setTimeout(() => {
+            timelineItem.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }, 200);
+    }
+}
+
+// Timeline Manager
+class TimelineManager {
+    constructor() {
+        this.timelineItems = document.querySelectorAll('.timeline-item');
+        this.timelineDots = document.querySelectorAll('.timeline-dot');
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.observeTimelineItems();
+        this.addHoverEffects();
+    }
+
+    bindEvents() {
+        // Add click events to timeline dots
+        this.timelineDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.highlightTimelineItem(index));
+            dot.addEventListener('mouseenter', () => this.addPulseEffect(dot));
+            dot.addEventListener('mouseleave', () => this.removePulseEffect(dot));
+        });
+
+        // Add hover effects to timeline content
+        this.timelineItems.forEach(item => {
+            const content = item.querySelector('.timeline-content');
+            content.addEventListener('mouseenter', () => this.highlightTimelineDot(item));
+            content.addEventListener('mouseleave', () => this.unhighlightTimelineDot(item));
+        });
+
+        // Add keyboard support for timeline headers
+        document.querySelectorAll('.timeline-header').forEach(header => {
+            header.setAttribute('tabindex', '0');
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleTimelineItem(header);
+                }
+            });
+        });
+    }
+
+    observeTimelineItems() {
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add staggered animation
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                        this.animateTimelineDot(entry.target);
+                    }, index * 200);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        this.timelineItems.forEach(item => {
+            observer.observe(item);
+        });
+    }
+
+    animateTimelineDot(timelineItem) {
+        const dot = timelineItem.querySelector('.timeline-dot');
+        if (dot) {
+            dot.style.transform = 'scale(1.2)';
+            dot.style.boxShadow = '0 0 0 8px rgba(59, 130, 246, 0.4), 0 8px 20px rgba(0, 0, 0, 0.2)';
+            
+            setTimeout(() => {
+                dot.style.transform = '';
+                dot.style.boxShadow = '';
+            }, 600);
+        }
+    }
+
+    highlightTimelineItem(index) {
+        // Remove previous highlights
+        this.timelineItems.forEach(item => {
+            item.classList.remove('highlighted');
+        });
+        
+        // Highlight selected item
+        this.timelineItems[index].classList.add('highlighted');
+        
+        // Scroll to the item
+        this.timelineItems[index].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
+    addPulseEffect(dot) {
+        dot.classList.add('pulse');
+    }
+
+    removePulseEffect(dot) {
+        dot.classList.remove('pulse');
+    }
+
+    highlightTimelineDot(timelineItem) {
+        const dot = timelineItem.querySelector('.timeline-dot');
+        if (dot) {
+            dot.style.transform = 'scale(1.2)';
+            dot.style.boxShadow = '0 0 0 6px rgba(59, 130, 246, 0.3), 0 6px 16px rgba(0, 0, 0, 0.15)';
+        }
+    }
+
+    unhighlightTimelineDot(timelineItem) {
+        const dot = timelineItem.querySelector('.timeline-dot');
+        if (dot) {
+            dot.style.transform = '';
+            dot.style.boxShadow = '';
+        }
+    }
+
+    addHoverEffects() {
+        // Add skill tag hover effects
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'scale(1.1) translateY(-2px)';
+                tag.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
+            });
+            
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = '';
+                tag.style.boxShadow = '';
+            });
+        });
+    }
+
+    // Method to add new timeline item dynamically
+    addTimelineItem(data) {
+        const timeline = document.querySelector('.timeline');
+        const newItem = this.createTimelineItem(data);
+        timeline.appendChild(newItem);
+        
+        // Re-initialize observers for the new item
+        this.observeTimelineItems();
+    }
+
+    createTimelineItem(data) {
+        const item = document.createElement('div');
+        item.className = 'timeline-item';
+        item.setAttribute('data-year', data.year);
+        
+        item.innerHTML = `
+            <div class="timeline-marker">
+                <div class="timeline-dot"></div>
+                <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+                <div class="timeline-header" onclick="toggleTimelineItem(this)">
+                    <h3>${data.title}</h3>
+                    <span class="timeline-company">${data.company}</span>
+                    <span class="timeline-duration">${data.duration}</span>
+                    <div class="expand-icon">+</div>
+                </div>
+                <div class="timeline-description">
+                    <p>${data.description}</p>
+                    <div class="timeline-skills">
+                        ${data.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        return item;
+    }
+}
+
 // Certificate Modal Manager
 class CertificateModalManager {
     constructor() {
@@ -485,6 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AnimationManager();
     new FormManager();
     new PerformanceOptimizer();
+    new TimelineManager();
     new CertificateModalManager();
 
     // Add loading animation
@@ -533,6 +739,7 @@ if (typeof module !== 'undefined' && module.exports) {
         AnimationManager,
         FormManager,
         PerformanceOptimizer,
+        TimelineManager,
         utils
     };
 }

@@ -555,9 +555,11 @@ section {
 }
 
 .timeline-description.expanded {
-    max-height: 500px;
+    max-height: none;
+    height: auto;
     opacity: 1;
     padding: 1.5rem;
+    text-align: left;
 }
 
 .timeline-description p {
@@ -570,6 +572,7 @@ section {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    margin-top: 1.5rem;
 }
 
 .skill-tag {

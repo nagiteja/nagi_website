@@ -705,7 +705,7 @@ section {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -929,9 +929,9 @@ section {
 
 .awards-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -954,7 +954,7 @@ section {
 }
 
 .award-icon {
-    font-size: 2rem;
+    font-size: 1.8rem;
     flex-shrink: 0;
     width: 50px;
     height: 50px;
@@ -964,6 +964,8 @@ section {
     background: var(--gradient);
     border-radius: 50%;
     color: white;
+    line-height: 1;
+    text-align: center;
 }
 
 .award-content {
@@ -1101,6 +1103,17 @@ section {
     font-size: 1.2rem;
 }
 
+.email-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.email-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
 .social-links {
     display: flex;
     gap: 1rem;
@@ -1116,6 +1129,40 @@ section {
 .social-link:hover {
     color: var(--primary-dark);
     text-decoration: underline;
+}
+
+/* Work Authorization Section */
+.work-authorization {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: var(--shadow);
+}
+
+.work-authorization h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.authorization-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.auth-item {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.auth-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
 }
 
 .contact-form {
@@ -1203,7 +1250,7 @@ section {
     }
     
     .skills-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .projects-grid {
@@ -1219,11 +1266,15 @@ section {
     }
     
     .awards-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 }
 
 @media (min-width: 1024px) {
+    .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
     .projects-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1233,7 +1284,7 @@ section {
     }
     
     .awards-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
     
     .hero-title {
@@ -1300,6 +1351,11 @@ section {
     .social-links {
         flex-wrap: wrap;
     }
+    
+    .awards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1346,5 +1402,71 @@ section {
     
     .hero {
         page-break-inside: avoid;
+    }
+}
+
+/* Goodbye Emoji Animation */
+.goodbye-emoji {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.wave-animation {
+    font-size: 4rem;
+    animation: wave 2s ease-in-out infinite;
+    transform-origin: 70% 70%;
+}
+
+.goodbye-text {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(14deg);
+    }
+    20% {
+        transform: rotate(-8deg);
+    }
+    30% {
+        transform: rotate(14deg);
+    }
+    40% {
+        transform: rotate(-4deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    60% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Responsive design for goodbye emoji */
+@media (max-width: 768px) {
+    .goodbye-emoji {
+        padding: 1rem;
+        margin-top: 2rem;
+    }
+    
+    .wave-animation {
+        font-size: 3rem;
+    }
+    
+    .goodbye-text {
+        font-size: 1rem;
     }
 }

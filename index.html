@@ -95,9 +95,9 @@
                 </div>
             </div>
             
-            <!-- Awards & Co-curricular Activities Subsection -->
+            <!-- What I Do Outside of Work Subsection -->
             <div class="awards-subsection">
-                <h3 class="subsection-title">Awards & Co-curricular Activities</h3>
+                <h3 class="subsection-title">What I Do Outside of Work</h3>
                 <div class="awards-grid">
                     <div class="award-card">
                         <div class="award-icon">🥇</div>
@@ -272,27 +272,27 @@
         <div class="container">
             <h2 class="section-title">Certifications & Achievements</h2>
             <div class="certifications-grid">
-                <div class="cert-card">
+                <div class="cert-card clickable-cert" data-certificate="images/certificate.pdf" data-type="pdf">
                     <div class="cert-icon">🏆</div>
                     <div class="cert-content">
-                        <h3>AWS Certified Solutions Architect</h3>
-                        <p class="cert-issuer">Amazon Web Services</p>
-                        <p class="cert-date">2023</p>
-                        <p class="cert-description">Designing and implementing scalable, secure, and reliable applications on AWS.</p>
+                        <h3>Introduction to Management Consulting</h3>
+                        <p class="cert-issuer">Emory University</p>
+                        <p class="cert-date">2025</p>
+                        <p class="cert-description">Explored what management consultants do and built problem-solving skills using practical tools and frameworks.</p>
                     </div>
                 </div>
 
-                <div class="cert-card">
+                <div class="cert-card clickable-cert" data-certificate="images/McKinseyForward.pdf" data-type="pdf">
                     <div class="cert-icon">📜</div>
                     <div class="cert-content">
-                        <h3>Certified Scrum Product Owner (CSPO)</h3>
-                        <p class="cert-issuer">Scrum Alliance</p>
-                        <p class="cert-date">2023</p>
-                        <p class="cert-description">Product management expertise in agile development methodologies.</p>
+                        <h3>McKinsey.org Forward Program</h3>
+                        <p class="cert-issuer">McKinsey.org</p>
+                        <p class="cert-date">2025</p>
+                        <p class="cert-description">Problem-solving, communication, adaptability, resilience, and digital skills development.</p>
                     </div>
                 </div>
 
-                <div class="cert-card">
+                <div class="cert-card clickable-cert" data-certificate="images/gcp-certificate.jpg">
                     <div class="cert-icon">💻</div>
                     <div class="cert-content">
                         <h3>Google Cloud Professional Developer</h3>
@@ -302,7 +302,7 @@
                     </div>
                 </div>
 
-                <div class="cert-card">
+                <div class="cert-card clickable-cert" data-certificate="images/product-mgmt-certificate.jpg">
                     <div class="cert-icon">🎯</div>
                     <div class="cert-content">
                         <h3>Product Management Certificate</h3>
@@ -312,7 +312,7 @@
                     </div>
                 </div>
 
-                <div class="cert-card">
+                <div class="cert-card clickable-cert" data-certificate="images/cism-certificate.jpg">
                     <div class="cert-icon">🔒</div>
                     <div class="cert-content">
                         <h3>Certified Information Security Manager (CISM)</h3>
@@ -322,7 +322,7 @@
                     </div>
                 </div>
 
-                <div class="cert-card">
+                <div class="cert-card clickable-cert" data-certificate="images/data-science-certificate.jpg">
                     <div class="cert-icon">📊</div>
                     <div class="cert-content">
                         <h3>Data Science Professional Certificate</h3>
@@ -346,21 +346,20 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <span class="contact-icon">📧</span>
-                            <span>your.email@example.com</span>
+                            <span>sainagi9@gmail.com</span>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📱</span>
-                            <span>+1 (555) 123-4567</span>
+                            <span>+65 81127641</span>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📍</span>
-                            <span>Your City, Country</span>
+                            <span>Singapore</span>
                         </div>
                     </div>
                     <div class="social-links">
                         <a href="#" class="social-link">GitHub</a>
                         <a href="#" class="social-link">LinkedIn</a>
-                        <a href="#" class="social-link">Twitter</a>
                     </div>
                 </div>
                 <form class="contact-form" id="contact-form">
@@ -388,6 +387,15 @@
             <p>&copy; 2024 Your Name. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Certificate Modal -->
+    <div id="certificate-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="certificate-image" src="" alt="Certificate" style="width: 100%; max-width: 800px; height: auto; display: none;">
+            <iframe id="certificate-pdf" src="" style="width: 100%; height: 80vh; border: none; display: none;"></iframe>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

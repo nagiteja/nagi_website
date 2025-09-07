@@ -199,9 +199,10 @@ class FormManager {
             return;
         }
 
-        // Simulate form submission
+        // Show loading state
         this.showLoading();
         
+        // Simulate form submission (you can replace this with your own email service later)
         setTimeout(() => {
             this.showSuccess();
             contactForm.reset();
@@ -264,6 +265,23 @@ class FormManager {
             submitBtn.style.background = '';
             submitBtn.disabled = false;
         }, 3000);
+    }
+
+    showError(errorMessage) {
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.dataset.originalText;
+        
+        submitBtn.textContent = 'Error - Try Again';
+        submitBtn.style.background = '#dc2626';
+        submitBtn.disabled = false;
+        
+        // Show error message
+        this.showErrors([errorMessage]);
+        
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = '';
+        }, 5000);
     }
 
     showErrors(errors) {
@@ -391,6 +409,74 @@ const utils = {
     }
 };
 
+// Certificate Modal Manager
+class CertificateModalManager {
+    constructor() {
+        this.modal = document.getElementById('certificate-modal');
+        this.certificateImage = document.getElementById('certificate-image');
+        this.certificatePdf = document.getElementById('certificate-pdf');
+        this.closeBtn = document.querySelector('.close');
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+    }
+
+    bindEvents() {
+        // Click on certificate cards
+        document.querySelectorAll('.clickable-cert').forEach(card => {
+            card.addEventListener('click', (e) => this.openModal(e));
+        });
+
+        // Close modal events
+        this.closeBtn.addEventListener('click', () => this.closeModal());
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeModal();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.style.display === 'block') {
+                this.closeModal();
+            }
+        });
+    }
+
+    openModal(e) {
+        const certificatePath = e.currentTarget.getAttribute('data-certificate');
+        const fileType = e.currentTarget.getAttribute('data-type');
+        
+        // Hide both elements first
+        this.certificateImage.style.display = 'none';
+        this.certificatePdf.style.display = 'none';
+        
+        if (fileType === 'pdf') {
+            // Show PDF in iframe
+            this.certificatePdf.src = certificatePath;
+            this.certificatePdf.style.display = 'block';
+        } else {
+            // Show image
+            this.certificateImage.src = certificatePath;
+            this.certificateImage.style.display = 'block';
+        }
+        
+        this.modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    closeModal() {
+        this.modal.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+        
+        // Clear the iframe src to stop PDF loading
+        this.certificatePdf.src = '';
+        this.certificateImage.src = '';
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all managers
@@ -399,6 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AnimationManager();
     new FormManager();
     new PerformanceOptimizer();
+    new CertificateModalManager();
 
     // Add loading animation
     document.body.style.opacity = '0';

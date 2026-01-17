@@ -870,6 +870,10 @@ section {
     gap: 1.5rem;
 }
 
+.expandable-cert {
+    cursor: pointer;
+}
+
 .cert-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
@@ -916,6 +920,99 @@ section {
     color: var(--text-secondary);
     line-height: 1.6;
     font-size: 0.95rem;
+}
+
+.cert-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.cert-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.course-toggle {
+    margin-top: 0.9rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.course-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.course-toggle .toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--gradient);
+    color: white;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.course-panel {
+    margin-left: auto;
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(12px);
+    overflow: hidden;
+    transition: max-width 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+
+.course-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    width: 320px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.course-list li {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.45rem 0.55rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.expandable-cert.expanded .course-panel {
+    max-width: 360px;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.expandable-cert.expanded .course-toggle .toggle-icon {
+    transform: rotate(180deg);
 }
 
 /* Awards & Co-curricular Activities Subsection */
@@ -1357,6 +1454,27 @@ section {
     
     .section-title {
         font-size: 2rem;
+    }
+
+    .cert-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .course-panel {
+        max-width: 100%;
+        margin-left: 0;
+        margin-top: 0.75rem;
+        transform: translateY(-6px);
+    }
+
+    .expandable-cert.expanded .course-panel {
+        transform: translateY(0);
+    }
+
+    .course-list {
+        width: 100%;
+        grid-template-columns: 1fr;
     }
     
     .about-stats {

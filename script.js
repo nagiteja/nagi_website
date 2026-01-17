@@ -651,6 +651,10 @@ class CertificateModalManager {
     }
 
     openModal(e) {
+        if (e.target.closest('.course-toggle') || e.target.closest('.course-panel')) {
+            return;
+        }
+
         const certificatePath = e.currentTarget.getAttribute('data-certificate');
         const fileType = e.currentTarget.getAttribute('data-type');
         
@@ -682,6 +686,48 @@ class CertificateModalManager {
     }
 }
 
+// Course List Toggle Manager
+class CourseListManager {
+    constructor() {
+        this.cards = document.querySelectorAll('.expandable-cert');
+        this.init();
+    }
+
+    init() {
+        this.cards.forEach(card => this.bindCard(card));
+    }
+
+    bindCard(card) {
+        const coursePanel = card.querySelector('.course-panel');
+        const toggleButton = card.querySelector('.course-toggle');
+        const toggleIcon = toggleButton ? toggleButton.querySelector('.toggle-icon') : null;
+
+        if (!coursePanel || !toggleButton) {
+            return;
+        }
+
+        const setExpandedState = (isExpanded) => {
+            card.classList.toggle('expanded', isExpanded);
+            toggleButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            coursePanel.setAttribute('aria-hidden', isExpanded ? 'false' : 'true');
+            if (toggleIcon) {
+                toggleIcon.textContent = isExpanded ? '-' : '+';
+            }
+        };
+
+        const toggleExpandedState = () => {
+            const isExpanded = !card.classList.contains('expanded');
+            setExpandedState(isExpanded);
+        };
+
+        toggleButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleExpandedState();
+        });
+
+    }
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all managers
@@ -692,6 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new PerformanceOptimizer();
     new TimelineManager();
     new CertificateModalManager();
+    new CourseListManager();
 
     // Add loading animation
     document.body.style.opacity = '0';
@@ -721,6 +768,20 @@ document.addEventListener('DOMContentLoaded', () => {
 // Service Worker registration for offline support (optional)
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
+        const isLocalhost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
+        if (isLocalhost) {
+            // Avoid caching during local development
+            navigator.serviceWorker.getRegistrations()
+                .then((registrations) => {
+                    registrations.forEach((registration) => registration.unregister());
+                })
+                .catch((error) => {
+                    console.log('SW unregister failed: ', error);
+                });
+            return;
+        }
+
         navigator.serviceWorker.register('/sw.js')
             .then(registration => {
                 console.log('SW registered: ', registration);

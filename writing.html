@@ -23,13 +23,7 @@
                 <a href="index.html#experience" class="nav-link">Experience</a>
                 <a href="index.html#skills" class="nav-link">Skills</a>
                 <a href="index.html#projects" class="nav-link">Projects</a>
-                <div class="nav-item nav-dropdown">
-                    <a href="writing.html" class="nav-link nav-dropdown-trigger">Writing</a>
-                    <div class="nav-dropdown-menu">
-                        <a href="writing.html" class="nav-link">All Posts</a>
-                        <a href="https://nagiteja.substack.com" class="nav-link" target="_blank" rel="noopener noreferrer">Subscribe</a>
-                    </div>
-                </div>
+                <a href="writing.html" class="nav-link">Writing</a>
                 <a href="index.html#certifications" class="nav-link">Certifications</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
@@ -50,8 +44,23 @@
                 <h1 class="section-title">Writing</h1>
                 <p class="writing-subtitle">Essays & notes from my Substack</p>
             </header>
-            <div id="writing-status" class="writing-status" aria-live="polite"></div>
-            <div id="writing-grid" class="writing-grid" aria-live="polite"></div>
+            <div class="writing-grid">
+                <a class="writing-image-link"
+                   href="https://nagiteja.substack.com/p/are-stablecoins-cryptos-biggest-use"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="Open Substack post in a new tab">
+                    <img class="writing-image"
+                         src="assets/writing/stablecoins.jpg"
+                         alt="Stablecoins cover art"
+                         loading="lazy">
+                    <span class="writing-external-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" focusable="false">
+                            <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3z"></path>
+                            <path d="M5 5h7v2H7v10h10v-5h2v7H5V5z"></path>
+                        </svg>
+                    </span>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -63,7 +72,6 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="writing.js"></script>
 </body>
 
 </html>

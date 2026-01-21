@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing - Nagi</title>
+    <meta name="description" content="Essays and notes from my Substack">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html#home" class="nav-logo">Nagi's Portfolio</a>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html#home" class="nav-link">Home</a>
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#experience" class="nav-link">Experience</a>
+                <a href="index.html#skills" class="nav-link">Skills</a>
+                <a href="index.html#projects" class="nav-link">Projects</a>
+                <div class="nav-item nav-dropdown">
+                    <a href="writing.html" class="nav-link nav-dropdown-trigger">Writing</a>
+                    <div class="nav-dropdown-menu">
+                        <a href="writing.html" class="nav-link">All Posts</a>
+                        <a href="https://nagiteja.substack.com" class="nav-link" target="_blank" rel="noopener noreferrer">Subscribe</a>
+                    </div>
+                </div>
+                <a href="index.html#certifications" class="nav-link">Certifications</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="writing-container">
+        <div class="container">
+            <header class="writing-header">
+                <h1 class="section-title">Writing</h1>
+                <p class="writing-subtitle">Essays & notes from my Substack</p>
+            </header>
+            <div id="writing-status" class="writing-status" aria-live="polite"></div>
+            <div id="writing-grid" class="writing-grid" aria-live="polite"></div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Vallamkonda Nagamani Teja. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="writing.js"></script>
+</body>
+
+</html>

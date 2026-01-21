@@ -129,6 +129,48 @@ body {
     width: 100%;
 }
 
+.nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 180px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: var(--transition);
+    z-index: 1001;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.nav-dropdown-menu .nav-link {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.nav-dropdown-menu .nav-link:hover {
+    color: var(--primary-color);
+}
+
 .theme-toggle {
     background: none;
     border: none;
@@ -1317,6 +1359,132 @@ section {
     min-height: 120px;
 }
 
+/* Writing */
+.writing-container {
+    padding: 120px 0 80px;
+    min-height: 100vh;
+}
+
+.writing-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.writing-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+}
+
+.writing-status {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.writing-error {
+    color: var(--text-secondary);
+}
+
+.writing-cta {
+    margin-top: 1rem;
+}
+
+.writing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.post-tile {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.post-tile:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-lg);
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.post-excerpt {
+    color: var(--text-secondary);
+}
+
+.post-date {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.tag-pill {
+    align-self: flex-start;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.skeleton {
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-line,
+.skeleton-block {
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+.skeleton-block {
+    width: 80px;
+    height: 18px;
+}
+
+.skeleton-line {
+    height: 12px;
+    width: 100%;
+}
+
+.skeleton-line.short {
+    width: 70%;
+}
+
+.skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150px;
+    width: 150px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    animation: skeleton 1.5s infinite;
+}
+
+@keyframes skeleton {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(300px);
+    }
+}
+
 /* Footer */
 .footer {
     background: var(--bg-tertiary);
@@ -1385,6 +1553,10 @@ section {
     .awards-grid {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
+
+    .writing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (min-width: 1024px) {
@@ -1406,6 +1578,10 @@ section {
     
     .hero-title {
         font-size: 4rem;
+    }
+
+    .writing-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -1434,6 +1610,28 @@ section {
     .nav-menu a {
         margin: 1rem 0;
         font-size: 1.1rem;
+    }
+
+    .nav-item {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0.5rem 0 0;
+    }
+
+    .nav-dropdown-menu .nav-link {
+        margin: 0.35rem 0;
+        font-size: 1rem;
     }
     
     .hamburger.active .bar:nth-child(2) {
